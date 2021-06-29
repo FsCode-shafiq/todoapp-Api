@@ -1,7 +1,6 @@
 const express = require("express");
 
-const userRout = require('./routes/users');
-const databaseConnection = require('./db')
+const databaseConnection = require("./db");
 
 const app = express();
 
@@ -11,7 +10,7 @@ app.use(express.json({ extended: false }));
 
 databaseConnection();
 
-app.use('/api/v1/users', userRout);
+app.use("/api/v1", require("./routes"));
 
 app.use((req, res) => {
   res.status(404).json({
@@ -21,5 +20,3 @@ app.use((req, res) => {
 });
 
 app.listen(PORT, () => console.log(`server is running on ${PORT}`));
-
-
