@@ -1,4 +1,5 @@
 const bcrypt = require("bcrypt");
+const jwt = require('jsonwebtoken');
 ObjectId = require('mongoose').Types.ObjectId;
 
 const { userModel } = require('../models');
@@ -69,6 +70,47 @@ exports.findUserById = async(req,res)=>{
     message: 'user found sucessfully',
     user,
   })
+  } catch (error) {
+    console.log(`server error: ${error.message}`);
+  }
+}
+
+exports.signIn = async(req,res)=>{
+  const {username, password}= req.body;
+  if(!username || !password){
+    return res.status(400).send({
+      sucess: false,
+      message: 'please provide username and password',
+    })
+  }
+  try {
+    const user = await userModel.findOne({username});
+    if (!user) {
+      return res.status(400).send({
+        sucess: false,
+        message: 'user not found!'
+      })
+    }
+    const isMatch = await bcrypt.compare(password, user.password);
+    if(!isMatch){
+      return res.status(400).send({
+        sucess: false,
+        message: 'please provide valid password',
+      })
+    }
+    const payLoad = {
+      username: user.username,
+      id: user._id,
+    }
+    const token = jwt.sign(payLoad,"secret",{
+      expiresIn: "1h"
+    });
+    return res.send({
+      sucess: true,
+      message: "User login Sucessfully",
+      token,
+      id: user._id,
+    })
   } catch (error) {
     console.log(`server error: ${error.message}`);
   }
