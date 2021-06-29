@@ -1,6 +1,6 @@
 const express = require("express");
 
-const databaseConnection = require("./db");
+const {connectDatabase} = require("./db");
 
 const app = express();
 
@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 5000;
 
 app.use(express.json({ extended: false }));
 
-databaseConnection();
+connectDatabase();
 
 app.use("/api/v1", require("./routes"));
 
