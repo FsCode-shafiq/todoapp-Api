@@ -1,4 +1,5 @@
 const bcrypt = require("bcrypt");
+ObjectId = require('mongoose').Types.ObjectId;
 
 const { userModel } = require('../models');
 
@@ -41,3 +42,34 @@ exports.signUpUser = async (req, res) => {
     console.log(`server error: ${error.message}`);
   }
 };
+exports.findUserById = async(req,res)=>{
+  const {id} = req.params;
+  if (!ObjectId.isValid(id)) {
+    return res.status(400).send({
+      sucess: false,
+      message: "please provide valid Object id"
+    })
+  }
+  if(!id){
+    return res.status(400).send({
+      sucess: false,
+      message: "please provide user id",
+    })
+  }
+  try {
+    const user = await userModel.findById({_id: id}).select("-password");
+  if (!user) {
+    return res.status(400).send({
+      sucess: false,
+      message: 'user not found'
+    })
+  }
+  return res.send({
+    sucess: true,
+    message: 'user found sucessfully',
+    user,
+  })
+  } catch (error) {
+    console.log(`server error: ${error.message}`);
+  }
+}
