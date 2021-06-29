@@ -1,6 +1,6 @@
-const {getUser , getUserById} = require('./user.controller');
+const {getUser, signUpUser } = require('./user.controller');
 const { getTodos } = require('./todo.controller');
 
-exports.userControllers = {getUser, getUserById};
+exports.userControllers = {getUser , signUpUser};
 
 exports.todosControllers = {getTodos};

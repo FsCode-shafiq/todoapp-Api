@@ -6,10 +6,9 @@ const app = express();
 
 const PORT = process.env.PORT || 5000;
 
-app.use(express.json({ extended: false }));
-
 connectDatabase();
 
+app.use(express.json({ extended: false }));
 app.use("/api/v1", require("./routes"));
 
 app.use((req, res) => {
