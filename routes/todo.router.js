@@ -8,6 +8,6 @@ const router = express.Router();
 
 router.get("/",authmiddleware, todosControllers.getTodos);
 router.post("/create",authmiddleware, todosControllers.createTodo);
-
+router.put("/update-todo/:id",authmiddleware,todosControllers.updateTodo);
 
 exports.todoRoute = app.use("/todo", router);
