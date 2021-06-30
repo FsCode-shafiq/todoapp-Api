@@ -12,3 +12,9 @@ install node js : https://nodejs.org/en/
 install mongo Db : https://docs.mongodb.com/manual/administration/install-community/
 ## Step 3 : 
 After install mongoDb and Node js just run this command in your root directory : `npm run start:dev`
+
+### For Testing This API Use :
+
+## 1 MongoDb compass
+
+## 2 Postman
