@@ -9,5 +9,6 @@ const router = express.Router();
 router.get("/",authmiddleware, todosControllers.getTodos);
 router.post("/create",authmiddleware, todosControllers.createTodo);
 router.put("/update-todo/:id",authmiddleware,todosControllers.updateTodo);
+router.delete("/delete-todo/:id", todosControllers.deleteTodoById);
 
 exports.todoRoute = app.use("/todo", router);

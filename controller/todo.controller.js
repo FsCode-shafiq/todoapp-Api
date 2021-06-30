@@ -91,3 +91,29 @@ exports.updateTodo = async (req, res) => {
     console.log("internal server error: ", error.message);
   }
 };
+
+exports.deleteTodoById = async(req,res)=>{
+    const {id} = req.params;
+    if (!ObjectId.isValid(id)) {
+        return res.status(400).send({
+          sucess: false,
+          message: "please provide valid todo id"
+        })
+      }
+
+    try {
+        const deleteTask = await TodoModel.findByIdAndDelete(id);
+        if (!deleteTask) {
+            return res.status(400).send({
+                sucess: false,
+                message: "task not found",
+            })
+        }
+        res.send({
+            sucess: true,
+            message: 'Task delete sucessfully'
+        })
+    } catch (error) {
+        console.log("internal server error: ", error.message);
+    }
+}
