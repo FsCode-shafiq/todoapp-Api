@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This is a simple node js todo application , with sign up , sign in , create todo , delete todo and update todo routes,
+This is a simple node js todo application , with sign up , sign in , create todo , delete todo ,find todo by id and update todo routes,
 
 ### Step To Run App In Your System:
 
