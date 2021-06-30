@@ -36,7 +36,7 @@ exports.signUpUser = async (req, res) => {
     createUser.save();
     return res.send({
       sucess: true,
-      user: createUser,
+      username: createUser.username,
       message: "user created sucessfully",
     });
   } catch (error) {
