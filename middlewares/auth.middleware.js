@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 
+const { config } = require('../config');
 const {userModel} = require('../models');
 
 module.exports = async(req,res,next)=>{
@@ -11,7 +12,7 @@ module.exports = async(req,res,next)=>{
         })
     }
     try {
-        const decoded = jwt.verify(token, "secret");
+        const decoded = jwt.verify(token, config.JWT_SECRET);
         const user = await userModel.findById({_id: decoded.id});
         if(!user){
             return res.status(404).send({

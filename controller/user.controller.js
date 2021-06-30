@@ -2,6 +2,7 @@ const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken');
 ObjectId = require('mongoose').Types.ObjectId;
 
+const {config} = require('../config');
 const { userModel } = require('../models');
 
 exports.getUser = async (req, res) => {
@@ -102,7 +103,7 @@ exports.signIn = async(req,res)=>{
       username: user.username,
       id: user._id,
     }
-    const token = jwt.sign(payLoad,"secret",{
+    const token = jwt.sign(payLoad,config.JWT_SECRET,{
       expiresIn: "1h"
     });
     return res.send({

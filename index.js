@@ -1,6 +1,14 @@
 const express = require("express");
+const path = require("path");
 
-const {connectDatabase} = require("./db");
+require("dotenv").config({
+  path:
+    process.env.NODE_ENV === "development"
+      ? path.resolve(".env.development")
+      : path.resolve(".env"),
+});
+
+const { connectDatabase } = require("./db");
 
 const app = express();
 
@@ -19,3 +27,5 @@ app.use((req, res) => {
 });
 
 app.listen(PORT, () => console.log(`server is running on ${PORT}`));
+
+console.log(process.env.NODE_ENV);

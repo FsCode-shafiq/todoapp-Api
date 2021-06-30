@@ -1,8 +1,10 @@
 const mongoose = require("mongoose");
 
+const {config} = require("../config")
+
 exports.connectDatabase = async () => {
   try {
-    await mongoose.connect("mongodb://localhost:27017/todoapp"),
+    await mongoose.connect(config.MONGO_URI),
       { useNewUrlParser: true, useUnifiedTopology: true, useCreacteIndex: true };
     console.log("Mongo Db connected sucessfully!");
   } catch (error) {
